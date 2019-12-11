@@ -15,8 +15,8 @@ class Task extends Model
     /**
      * 取得該使用者的所有任務。
      */
-    public function tasks()
+    public function user()
     {
-        return $this->hasMany(Task::class);
+        return $this->belongsTo(User::class);
     }
 }
