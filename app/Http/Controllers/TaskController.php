@@ -42,12 +42,23 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:'255',
         ]);
         $request->user()->tasks()->create([
             'name' => $request->name,
         ]);
 
         return redirect('/tasks');
+         /**
+          * 移除給定的任務。
+          *
+          * @param  Request  $request
+          * @param  Task  $task
+          * @return Response
+          */
+    public function destroy(Request $request, Task $task)
+    {
+        //
+    }
     }
 }
