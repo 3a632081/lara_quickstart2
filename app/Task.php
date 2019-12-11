@@ -12,4 +12,11 @@ class Task extends Model
      * @var array
      */
     protected $fillable = ['name'];
+    /**
+     * 取得該使用者的所有任務。
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
