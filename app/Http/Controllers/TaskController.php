@@ -42,7 +42,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:'255',
+            'name' => 'required|max:255',
         ]);
         $request->user()->tasks()->create([
             'name' => $request->name,
@@ -58,7 +58,8 @@ class TaskController extends Controller
           */
     public function destroy(Request $request, Task $task)
     {
-        //
+       $this->authorize(\'destroy\', $task);
+        // 刪除該任務...
     }
     }
 }
