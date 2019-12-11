@@ -1,13 +1,11 @@
+
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Task;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
-
 class TaskController extends Controller
 {
     /**
@@ -30,7 +28,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('user_id', $request->user()->id)->get();
         return view('tasks.index', [
-            'tasks\' => $this->tasks->forUser($request->user()),
+            'tasks' => $this->tasks->forUser($request->user()),
         ]);
     }
     /**
@@ -44,22 +42,24 @@ class TaskController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
+        // Create The Task...
         $request->user()->tasks()->create([
             'name' => $request->name,
         ]);
-
         return redirect('/tasks');
-         /**
-          * 移除給定的任務。
-          *
-          * @param  Request  $request
-          * @param  Task  $task
-          * @return Response
-          */
+    }
+    /**
+     * 移除給定的任務。
+     *
+     * @param  Request  $request
+     * @param  Task  $task
+     * @return Response
+     */
     public function destroy(Request $request, Task $task)
     {
-       $this->authorize(\'destroy\', $task);
+        $this->authorize('destroy', $task);
         // 刪除該任務...
-    }
+        $task->delete();
+        return redirect('/tasks');
     }
 }
